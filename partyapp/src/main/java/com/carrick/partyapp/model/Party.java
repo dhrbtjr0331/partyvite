@@ -10,10 +10,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "parties")
@@ -59,20 +60,25 @@ public class Party {
     // Relationships
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "host_id", nullable = false)
+    @JsonIgnore
     private User host;
     
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RSVP> rsvps = new HashSet<>();
+    @JsonIgnore
+    private List<RSVP> rsvps = new ArrayList<>();
     
-    // Helper method to get RSVP count
-    public int getRsvpCount() {
+    // Helper method to get RSVP count - synchronized to prevent concurrent modification
+    public synchronized int getRsvpCount() {
+        if (rsvps == null) {
+            return 0;
+        }
         return (int) rsvps.stream()
                 .filter(rsvp -> rsvp.getStatus() == RSVPStatus.GOING)
                 .count();
     }
     
     // Check if party is at capacity
-    public boolean isAtCapacity() {
+    public synchronized boolean isAtCapacity() {
         if (capacity == null) return false;
         return getRsvpCount() >= capacity;
     }

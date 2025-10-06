@@ -9,10 +9,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -24,31 +25,32 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @NotBlank(message = "Username is required")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     @Column(unique = true, nullable = false)
     private String username;
-
+    
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     @Column(unique = true, nullable = false)
     private String email;
-
+    
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
-
+    
     @Column(name = "first_name")
     private String firstName;
-
+    
     @Column(name = "last_name")
     private String lastName;
-
+    
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
-
+    
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -57,10 +59,12 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     
-    // Relationships
+    // Relationships - Use ArrayList instead of HashSet
     @OneToMany(mappedBy = "host", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Party> hostedParties = new HashSet<>();
+    @JsonIgnore
+    private List<Party> hostedParties = new ArrayList<>();
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RSVP> rsvps = new HashSet<>();
+    @JsonIgnore
+    private List<RSVP> rsvps = new ArrayList<>();
 }

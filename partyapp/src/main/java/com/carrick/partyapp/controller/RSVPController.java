@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/rsvps")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class RSVPController {
     
     @Autowired

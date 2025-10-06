@@ -5,8 +5,10 @@ import com.carrick.partyapp.dto.PartyResponse;
 import com.carrick.partyapp.exception.ResourceNotFoundException;
 import com.carrick.partyapp.exception.UnauthorizedException;
 import com.carrick.partyapp.model.Party;
+import com.carrick.partyapp.model.RSVPStatus;
 import com.carrick.partyapp.model.User;
 import com.carrick.partyapp.repository.PartyRepository;
+import com.carrick.partyapp.repository.RSVPRepository;
 import com.carrick.partyapp.repository.UserRepository;
 import com.carrick.partyapp.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class PartyService {
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private RSVPRepository rsvpRepository;
     
     // Create a new party
     @Transactional
@@ -47,6 +52,7 @@ public class PartyService {
     }
     
     // Get all public parties
+    @Transactional(readOnly = true)
     public List<PartyResponse> getAllPublicParties() {
         List<Party> parties = partyRepository.findUpcomingPublicParties(LocalDateTime.now());
         return parties.stream()
@@ -55,6 +61,7 @@ public class PartyService {
     }
     
     // Get party by ID
+    @Transactional(readOnly = true)
     public PartyResponse getPartyById(Long partyId) {
         Party party = partyRepository.findById(partyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Party not found with id: " + partyId));
@@ -63,6 +70,7 @@ public class PartyService {
     }
     
     // Get parties hosted by current user
+    @Transactional(readOnly = true)
     public List<PartyResponse> getMyHostedParties(UserPrincipal currentUser) {
         List<Party> parties = partyRepository.findByHostId(currentUser.getId());
         return parties.stream()
@@ -108,6 +116,7 @@ public class PartyService {
     }
     
     // Helper method to map Party entity to PartyResponse DTO
+    // Fixed to avoid ConcurrentModificationException
     private PartyResponse mapToPartyResponse(Party party) {
         PartyResponse response = new PartyResponse();
         response.setId(party.getId());
@@ -119,8 +128,15 @@ public class PartyService {
         response.setIsPublic(party.getIsPublic());
         response.setHostId(party.getHost().getId());
         response.setHostUsername(party.getHost().getUsername());
-        response.setRsvpCount(party.getRsvpCount());
-        response.setAtCapacity(party.isAtCapacity());
+        
+        // Use repository to count RSVPs instead of accessing party.getRsvps()
+        long rsvpCount = rsvpRepository.countByPartyIdAndStatus(party.getId(), RSVPStatus.GOING);
+        response.setRsvpCount((int) rsvpCount);
+        
+        // Check capacity
+        boolean atCapacity = party.getCapacity() != null && rsvpCount >= party.getCapacity();
+        response.setAtCapacity(atCapacity);
+        
         response.setCreatedAt(party.getCreatedAt());
         
         return response;
