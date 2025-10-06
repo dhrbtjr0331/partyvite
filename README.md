@@ -1,22 +1,22 @@
-# 🎉 PartyApp - College Party Invitation System
+# PartyApp - College Party Invitation System
 
 A full-stack web application that allows college students to create, discover, and RSVP to parties. Built with Spring Boot, React, and PostgreSQL.
 
-**🌐 Live Demo:** [http://52.90.208.158/](http://52.90.208.158/)
+**Live Demo:** [http://www.partyvite.xyz/](http://www.partyvite.xyz/)
 
 ![Party App Banner](https://img.shields.io/badge/Spring%20Boot-3.5.6-brightgreen) ![React](https://img.shields.io/badge/React-18-blue) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
-## ✨ Features
+## Features
 
-### 🔐 User Management
+### User Management
 - Secure user registration and login with JWT authentication
 - Password encryption using BCrypt
 - Persistent session management
 - User profile customization
 
-### 🎊 Party Management
+### Party Management
 - **Create Parties** - Host your own events with custom details
 - **Browse Events** - Discover upcoming public parties
 - **Party Details** - View comprehensive information including location, time, capacity, and guest list
@@ -24,14 +24,14 @@ A full-stack web application that allows college students to create, discover, a
 - **Capacity Management** - Set maximum guest limits
 - **Public/Private Options** - Control party visibility
 
-### 👥 RSVP System
+### RSVP System
 - **Easy RSVP** - One-click registration for parties
 - **Guest List** - View who's attending your events
 - **RSVP Status Tracking** - Going, Maybe, or Cancelled status
 - **Capacity Alerts** - Automatic notifications when parties reach capacity
 - **My RSVPs** - Track all events you're attending
 
-### 🎨 User Experience
+### User Experience
 - **Responsive Design** - Mobile-friendly interface with Tailwind CSS
 - **Real-time Updates** - Dynamic content loading
 - **Intuitive Navigation** - Clean, modern UI
@@ -41,7 +41,7 @@ A full-stack web application that allows college students to create, discover, a
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - **Framework:** Spring Boot 3.5.6
@@ -70,14 +70,14 @@ A full-stack web application that allows college students to create, discover, a
 
 ---
 
-## 🐛 Known Issues
+## Known Issues
 
 Date validation may fail if server timezone differs from client
 Guest list may take a moment to update after RSVP
 
 ---
 
-## 🚧 Roadmap
+## Roadmap
 ### Future enhancements planned:
 
  Search and filter parties by date, location, or tags
