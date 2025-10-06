@@ -1,5 +1,6 @@
 package com.carrick.partyapp.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -7,30 +8,24 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class CorsConfig {
+
+    @Value("${cors.allowed.origins:http://localhost:3000}")
+    private String allowedOrigins;
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Allow frontend origin
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        
-        // Allow all HTTP methods
+        // Split allowed origins by comma
+        configuration.setAllowedOriginPatterns(Arrays.asList(allowedOrigins.split(",")));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        
-        // Allow all headers
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        
-        // Allow credentials (cookies, authorization headers)
         configuration.setAllowCredentials(true);
-        
-        // Expose Authorization header to frontend
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-        
-        // How long the response from a preflight request can be cached (in seconds)
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setMaxAge(3600L);
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

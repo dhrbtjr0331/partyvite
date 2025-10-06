@@ -1,36 +1,489 @@
-# Backend
-party-backend/target/
-party-backend/.mvn/
-party-backend/mvnw
-party-backend/mvnw.cmd
+##################################################
+# Party Invitation System - Comprehensive .gitignore
+##################################################
+
+###################
+# Environment Files
+###################
+*.env
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.prod
+.env.staging
+application-local.properties
+application-*.properties.local
+
+# Secrets and Keys
+*.pem
+*.key
+*.p12
+*.jks
+.secrets/
+secrets/
+*.secret
+
+###################
+# partyapp (Java/Spring Boot/Maven)
+###################
+
+# Maven
+partyapp/target/
+partyapp/.mvn/
+partyapp/mvnw
+partyapp/mvnw.cmd
+**/target/
+*.versionsBackup
+
+# Gradle (if you switch to Gradle)
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+*.gradle.kts.backup
+
+# Java
 *.class
 *.jar
 *.war
 *.ear
-*.log
+*.nar
+hs_err_pid*
+replay_pid*
 
-# Frontend
-frontend/node_modules/
-frontend/build/
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
+# Spring Boot
+spring-boot-*.log
+application-*.yml.bak
+application-*.properties.bak
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JDT-specific (Eclipse Java Development Tools)
+.apt_generated_test/
+
+###################
+# party-frontend (React/Node.js)
+###################
+
+# Dependencies
+party-frontend/node_modules/
+node_modules/
+jspm_packages/
+bower_components/
+
+# Production build
+party-frontend/build/
+party-frontend/dist/
+build/
+dist/
+
+# Testing
+coverage/
+.nyc_output
+*.lcov
+
+# Cache
+.npm
+.eslintcache
+.stylelintcache
+.cache
+.parcel-cache
+.next/
+.nuxt/
+.vuepress/dist
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
 
-# IDE
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Package manager files
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+###################
+# Database
+###################
+
+# PostgreSQL
+*.sql.backup
+*.sql.bak
+*.dump
+*.db
+*.sqlite
+*.sqlite3
+
+# Database dumps
+backups/
+dumps/
+*.backup
+
+# H2 Database (if using for testing)
+*.h2.db
+*.mv.db
+*.trace.db
+
+###################
+# Docker
+###################
+
+# Docker files
+*.tar.gz
+docker-compose.override.yml
+.dockerignore.backup
+
+# Docker volumes (uncomment if you want to ignore)
+# postgres_data/
+
+###################
+# Operating System
+###################
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+###################
+# IDEs and Editors
+###################
+
+# JetBrains (IntelliJ, WebStorm, etc.)
 .idea/
-.vscode/
 *.iml
+*.ipr
+*.iws
+.idea_modules/
+cmake-build-*/
 *.swp
 *.swo
-.DS_Store
 
-# Environment files
-*.env
-application-local.properties
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
 
-# OS
-Thumbs.db
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+tags
+[._]*.un~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+###################
+# Testing
+###################
+
+# Test coverage
+coverage/
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+htmlcov/
+
+# JUnit
+**/TEST-*.xml
+
+###################
+# Build Tools
+###################
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Gradle wrapper
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+
+###################
+# Logs and Temporary Files
+###################
+
+# Application logs
+logs/
+*.log
+*.log.*
+log/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*.swn
+*~
+
+###################
+# Deployment & CI/CD
+###################
+
+# Deployment scripts (keep versioned ones, ignore local)
+deploy-local.sh
+*.local.sh
+
+# CI/CD
+.github/workflows/secrets.yml
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+*.tfvars
+
+# Ansible
+*.retry
+.vault_pass
+
+###################
+# Certificates & Security
+###################
+
+# SSL Certificates
+*.crt
+*.cer
+*.der
+*.pem
+*.p7b
+*.p7c
+*.pfx
+*.p12
+*.keystore
+*.truststore
+
+# SSH Keys
+id_rsa
+id_rsa.pub
+id_dsa
+id_dsa.pub
+id_ecdsa
+id_ecdsa.pub
+id_ed25519
+id_ed25519.pub
+known_hosts
+
+###################
+# Package Files
+###################
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.gz
+*.bz2
+*.xz
+
+# Exclude deployment packages
+!deploy/*.tar.gz
+
+###################
+# Documentation
+###################
+
+# Generated documentation
+docs/_build/
+site/
+_site/
+
+# But keep README and important docs
+!README.md
+!CONTRIBUTING.md
+!LICENSE
+!CHANGELOG.md
+
+###################
+# Media Files (if storing large files)
+###################
+
+# Uncomment if you don't want to track large media files
+# *.mp4
+# *.mov
+# *.avi
+# *.wmv
+# *.flv
+# *.mp3
+# *.wav
+# *.flac
+
+###################
+# Project-Specific
+###################
+
+# User uploads (if you add file upload feature)
+uploads/
+user-uploads/
+profile-pictures/
+
+# Generated reports
+reports/
+*.report
+
+# Cache directories
+.cache/
+.sass-cache/
+
+# Backup files
+*.backup
+*.old
+*-backup
+*-old
+
+###################
+# Keep These Files (Exceptions)
+###################
+
+# Keep specific files even if they match above patterns
+!.gitkeep
+!.gitignore
+!.editorconfig
+!.prettierrc
+!.eslintrc
+!.dockerignore
