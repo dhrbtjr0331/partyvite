@@ -11,7 +11,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "rsvps", 
-       uniqueConstraints = @UniqueConstraint(columnNames = {"party_id", "user_id"}))
+       uniqueConstraints = @UniqueConstraint(columnNames = {"party_id", "user_id"}),
+       indexes = {
+           @Index(name = "idx_rsvps_party_id", columnList = "party_id"), // FK index
+           @Index(name = "idx_rsvps_user_id", columnList = "user_id"),   // FK index
+           @Index(name = "idx_rsvps_party_status", columnList = "party_id, status")
+       })
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

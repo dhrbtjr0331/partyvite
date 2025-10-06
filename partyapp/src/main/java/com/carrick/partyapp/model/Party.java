@@ -17,7 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "parties")
+@Table(name = "parties", indexes = {
+    @Index(name = "idx_parties_host_id", columnList = "host_id"), // FK index
+    @Index(name = "idx_parties_date_public", columnList = "party_date_time, is_public")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

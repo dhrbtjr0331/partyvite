@@ -10,7 +10,8 @@ const RegisterPage = () => {
     username: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    firstName: '',
+    lastName: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,23 +29,13 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
     setLoading(true);
 
     try {
-      await register({
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      });
+      await register(formData);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -55,10 +46,10 @@ const RegisterPage = () => {
       <Card className="max-w-md w-full p-8">
         <div>
           <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-2">
-            Join the Party! 🎊
+            Join PartyApp! 🎊
           </h2>
           <p className="text-center text-gray-600 mb-6">
-            Create an account to start hosting and joining parties
+            Create an account to start hosting and attending parties
           </p>
         </div>
 
@@ -85,7 +76,7 @@ const RegisterPage = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Enter your email"
+            placeholder="your.email@example.com"
             required
           />
 
@@ -95,19 +86,29 @@ const RegisterPage = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Create a password"
+            placeholder="Create a password (min 6 characters)"
             required
           />
 
-          <Input
-            label="Confirm Password"
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder="Confirm your password"
-            required
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <Input
+              label="First Name"
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="John"
+            />
+
+            <Input
+              label="Last Name"
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Doe"
+            />
+          </div>
 
           <Button type="submit" fullWidth disabled={loading}>
             {loading ? 'Creating account...' : 'Sign Up'}
